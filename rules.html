@@ -3,16 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>菜單</title>
+<title>入店須知</title>
 
 <style>
-/* ===== 背景 ===== */
-html, body {
-    margin: 0;
-    height: 100%;
-}
-
+/* ===== 背景（跟菜單一樣） ===== */
 body {
+    margin: 0;
     font-family: Arial;
 
     background: url("bg.png") no-repeat center center;
@@ -20,7 +16,7 @@ body {
     background-attachment: fixed;
 }
 
-/* 暗色遮罩 */
+/* 暗層 */
 body::before {
     content:"";
     position:fixed;
@@ -29,13 +25,12 @@ body::before {
     z-index:0;
 }
 
-/* 讓內容在上層 */
 body > * {
     position: relative;
     z-index: 1;
 }
 
-/* ===== 導覽列 ===== */
+/* ===== 導覽 ===== */
 .nav {
     position: fixed;      /* 🔥 置頂關鍵 */
     top: 0;
@@ -65,13 +60,11 @@ body {
     padding-top:70px;
 }
 
-/* ===== 標題 ===== */
+/* ===== 標題（跟菜單一致） ===== */
 .title {
     text-align:center;
     font-size:36px;
     color:white;
-
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
 
     margin-top:20px;
 }
@@ -82,7 +75,7 @@ body {
     margin:30px auto;
 }
 
-/* ===== 卡片（玻璃感） ===== */
+/* ===== 卡片（跟 menu-box 一樣） ===== */
 .menu-box {
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(10px);
@@ -102,32 +95,30 @@ body {
     padding-bottom:10px;
 }
 
-/* 項目 */
+/* 條列（像菜單項目） */
 .item {
-    display:flex;
-    justify-content:space-between;
     margin:12px 0;
-
-    text-shadow:1px 1px 4px rgba(0,0,0,0.8);
+    font-size:18px;
 }
 
-/* 套餐 */
-.combo {
-    text-align:center;
-    font-size:20px;
-    margin-top:10px;
+/* 強調 */
+.highlight {
+    color:#ffd700;
+    font-weight:bold;
 }
 
-/* 備註 */
-.note {
-    text-align: center;
-    margin: 40px 0;
+.link {
+    text-decoration: none;
+    color: #ffd700;
+    font-weight: bold;
 
+    border-bottom: 2px solid rgba(255,215,0,0.6);
+    transition: 0.2s;
+}
+
+.link:hover {
     color: white;
-    font-size: 22px;   /* 🔥 放大 */
-
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
-    padding-bottom:10px;
+    border-bottom: 2px solid white;
 }
 </style>
 </head>
@@ -142,42 +133,36 @@ body {
     <a href="rules.html">入店須知</a>
 </div>
 
-<h1 class="title">🍽 菜單</h1>
+<h1 class="title">📜 入店須知</h1>
 
 <div class="section">
 
     <div class="menu-box">
-        <h2>主餐</h2>
-        <div class="item"><span>蛋包飯</span><span>2000</span></div>
-        <div class="item"><span>咖哩飯</span><span>2000</span></div>
-        <div class="item"><span>鮭魚排</span><span>2000</span></div>
+        <h2>基本規範</h2>
+        <div class="item">✨ 這裡不是一間正常RP店</div>
+        <div class="item">🎭 和朋友一起玩鬧為主</div>
+        <div class="item">❤️ 沒有任何消費限制</div>
     </div>
 
     <div class="menu-box">
-        <h2>甜點</h2>
-        <div class="item"><span>栗子蛋糕</span><span>2000</span></div>
-        <div class="item"><span>乳酪蛋糕</span><span>2000</span></div>
-        <div class="item"><span>蘋果派</span><span>2000</span></div>
+        <h2>店內互動</h2>
+        <div class="item">💬 點餐請使用 <span class="highlight">悄悄話</span> 與女僕互動</div>
+        <div class="item">📷 可拍照，若需合照可向女僕詢問</div>
     </div>
 
     <div class="menu-box">
-        <h2>飲品</h2>
-        <div class="item"><span>三倍鮮奶油咖啡</span><span>2000</span></div>
-        <div class="item"><span>檸檬水</span><span>2000</span></div>
-        <div class="item"><span>奶茶</span><span>2000</span></div>
-    </div>
-
-    <div class="menu-box">
-        <h2>套餐</h2>
-        <div class="combo">
-            主餐 + 甜點 + 飲品 = <strong>5000</strong>
-        </div>
-    </div>
-
+        <h2>注意事項</h2>
+        <div class="item">⏰ 本店採用預約制，可事前向店長預約時間</div>
+        <div class="item">店長會盡量找大家都有空的時間營業</div>
+        <div class="item">若有營業皆會在店長的脆告知</div>
+        <div class="item">
+    📱 店長的脆：
+    <a href="https://www.threads.com/@goodoo.10.11" target="_blank" class="link">
+        @goodoo.10.11
+    </a>
 </div>
+    </div>
 
-<div class="note">
-💬 需要點餐的顧客，請對喜愛的女僕使用悄悄話
 </div>
 
 </body>
