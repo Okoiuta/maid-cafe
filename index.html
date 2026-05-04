@@ -42,18 +42,28 @@ body::before {
     z-index: -1;
 }
 .nav {
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    padding:15px;
-    background:white;
-    border-bottom:1px solid #ddd;
+    position: fixed;      /* 🔥 置頂關鍵 */
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;  /* 水平置中 */
+    align-items: center;
+
+    gap: 30px;
+    height: 60px;
+
+    background: white;
+    border-bottom: 10px solid #ddd;
+
+    z-index: 999;
 }
 
 .nav a {
-    text-decoration:none;
-    color:black;
-    font-weight:bold;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
 }
 
 .hero {
