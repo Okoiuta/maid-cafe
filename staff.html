@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<button class="nav-btn prev">‹</button>
+<button class="nav-btn next">›</button>
+<title>員工介紹</title>
+
+<style>
+.nav {
+    position: fixed;      /* 🔥 置頂關鍵 */
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;  /* 水平置中 */
+    align-items: center;
+
+    gap: 30px;
+    height: 60px;
+
+    background: white;
+    border-bottom: 1px solid #ddd;
+
+    z-index: 999;
+}
+
+.nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+body {
+    padding-top: 70px;
+    margin:0;
+    font-family: Arial;
+    background:#fafafa;
+}
+/* ===== 卡片牆 ===== */
+.grid {
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:10px;
+    padding:20px;
+}
+
+.card {
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.card img {
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    transition:0.3s;
+}
+
+.card:hover img {
+    transform:scale(1.08);
+}
+
+/* Hover遮罩 */
+.overlay {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:10px;
+    color:white;
+    background:linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    opacity:0;
+    transition:0.3s;
+}
+
+.card:hover .overlay {
+    opacity:1;
+}
+
+.name {
+    font-size:14px;
+    font-weight:bold;
+}
+
+.role {
+    font-size:12px;
+    opacity:0.8;
+}
+
+/* 手機永遠顯示 */
+@media (hover:none){
+    .overlay {
+        opacity:1;
+    }
+}
+
+/* RWD */
+@media (max-width:900px){
+    .grid { grid-template-columns:repeat(3,1fr); }
+}
+
+@media (max-width:500px){
+    .grid { grid-template-columns:repeat(2,1fr); }
+}
+
+/* ===== Modal ===== */
+.modal {
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    z-index:999;
+}
+
+.modal-box {
+    width:90%;
+    max-width:1000px;
+    height:80vh;
+    margin:5vh auto;
+    background:white;
+    display:flex;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+/* 左圖 */
+.modal-left {
+    width:60%;
+    position:relative;
+    background:black;
+}
+
+.modal-left img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* 右文 */
+.modal-right {
+    width:40%;
+    padding:20px;
+}
+
+/* 關閉 */
+.close {
+    position: fixed;  
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+    z-index: 9999;
+}
+.nav-btn {
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:30px;
+    color:white;
+    background:rgba(0,0,0,0.4);
+    border:none;
+    cursor:pointer;
+    padding:10px;
+}
+
+
+.prev { left:10px; }
+.next { right:10px; }
+.prev { left:10px; }
+.next { right:10px; }
+
+/* 手機版Modal */
+@media (max-width:700px){
+    .modal-box {
+        flex-direction:column;
+        height:90vh;
+    }
+
+    .modal-left, .modal-right {
+        width:100%;
+        height:50%;
+    }
+}
+</style>
+</head>
+
+<body>
+    
+    <div class="nav">
+    <a href="index.html">首頁</a>
+    <a href="menu.html">菜單</a>
+    <a href="staff.html">店員</a>
+</div>
+
+<!-- ===== 卡片容器 ===== -->
+<div class="grid" id="staff-grid"></div>
+
+<!-- ===== Modal ===== -->
+<div id="modal" class="modal">
+    <span class="close">&times;</span>
+
+    <div class="modal-box">
+        <div class="modal-left">
+            <img id="modal-img">
+            <button class="nav prev">‹</button>
+            <button class="nav next">›</button>
+        </div>
+
+        <div class="modal-right">
+            <h2 id="modal-name"></h2>
+            <h4 id="modal-role"></h4>
+            <p id="modal-desc"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+/* ===== 1️⃣ 資料區（你只改這裡） ===== */
+const staffData = [
+    {
+        name: "咕嘟咕嘟",
+        role: "店長",
+        desc: "咕嘟的意思是孤獨，社恐人，擅長獨處，其實很想交朋友，可惜語言表達能力非常薄弱。",
+        images: [
+            "683531874_18073062908397134_465692989995833762_n.jpg",
+            "ffxiv2.png"
+        ]
+    },
+    {
+        name: "白月",
+        role: "員工",
+        desc: "曾經是隻貓，機緣巧合下與惡魔簽訂契約成為拉拉肥，現在喜歡到處玩。",
+        images: [
+            "FINAL FANTASY XIV Online Screenshot 2026.04.29 - 21.00.09.25.png",
+            "ffxiv2.png"
+        ]
+    },
+    {
+        name: "芳芳明",
+        role: "員工",
+        desc: "南洋出身森都成長的沙漠薯，常見於草叢。",
+        images: [
+            "ffxiv_20260504_153808_465-2.png",
+            "ffxiv4.png"
+        ]
+    }
+];
+
+/* ===== 2️⃣ 生成卡片 ===== */
+const grid = document.getElementById("staff-grid");
+
+staffData.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.dataset.name = p.name;
+    card.dataset.role = p.role;
+    card.dataset.desc = p.desc;
+    card.dataset.images = p.images.join(",");
+
+    card.innerHTML = `
+        <img src="${p.images[0]}">
+        <div class="overlay">
+            <div class="name">${p.name}</div>
+            <div class="role">${p.role}</div>
+        </div>
+    `;
+
+    grid.appendChild(card);
+});
+
+/* ===== 3️⃣ Modal邏輯 ===== */
+const modal = document.getElementById("modal");
+const img = document.getElementById("modal-img");
+const nameBox = document.getElementById("modal-name");
+const roleBox = document.getElementById("modal-role");
+const descBox = document.getElementById("modal-desc");
+
+let images = [];
+let current = 0;
+
+/* 點卡片 */
+document.addEventListener("click", e => {
+    const card = e.target.closest(".card");
+    if (!card) return;
+
+    images = card.dataset.images.split(",");
+    current = 0;
+
+    img.src = images[current];
+    nameBox.innerText = card.dataset.name;
+    roleBox.innerText = card.dataset.role;
+    descBox.innerText = card.dataset.desc;
+
+    modal.style.display = "block";
+});
+
+/* 關閉 */
+document.querySelector(".close").onclick = () => {
+    modal.style.display = "none";
+};
+
+/* 下一張 */
+document.querySelector(".next").onclick = () => {
+    current = (current + 1) % images.length;
+    img.src = images[current];
+};
+
+/* 上一張 */
+document.querySelector(".prev").onclick = () => {
+    current = (current - 1 + images.length) % images.length;
+    img.src = images[current];
+};
+modal.addEventListener("click", function(e) {
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
+});
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+        modal.style.display = "none";
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>惡魔拉肥咖啡廳</title>
+<div class="memory-wall">
+    <div class="memory-track">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.14 - 21.15.34.83.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.06 - 21.44.44.69.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.05 - 00.17.34.22.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.03.23 - 22.44.26.98.png">
+
+        <!-- 重複一份（讓動畫無縫） -->
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.14 - 21.15.34.83.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.06 - 21.44.44.69.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.05 - 00.17.34.22.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.03.23 - 22.44.26.98.png">
+    </div>
+</div>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: Arial;
+
+    background: url("bg.png") no-repeat center center;
+    background-size: cover;      /* 🔥 填滿 */
+    background-attachment: fixed;
+
+    min-height: 100vh;           /* 🔥 防止底部留白 */
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: -1;
+}
+.nav {
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    padding:15px;
+    background:white;
+    border-bottom:1px solid #ddd;
+}
+
+.nav a {
+    text-decoration:none;
+    color:black;
+    font-weight:bold;
+}
+
+.hero {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 主標題 */
+.hero h1 {
+    font-size: 64px;
+    margin: 0;
+    letter-spacing: 6px;
+
+    color: white; /* ✅ 白字 */
+
+
+    font-weight: bold;
+}
+
+/* 副標題 */
+.hero p {
+    font-size: 28px;
+    margin-top: 15px;
+
+    color: white; /* ✅ 白字 */
+
+
+    
+}
+
+.memory-wall {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    background: rgba(0,0,0,0.6);
+    padding: 10px 0;
+}
+
+.memory-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+
+    animation: scroll 20s linear infinite;
+}
+
+.memory-track img {
+    height: 100px;
+    border-radius: 10px;
+}
+.memory-track img:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+.memory-wall::before,
+.memory-wall::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    z-index: 2;
+}
+
+.memory-wall::before {
+    left: 0;
+    background: linear-gradient(to right, black, transparent);
+}
+
+.memory-wall::after {
+    right: 0;
+    background: linear-gradient(to left, black, transparent);
+}
+/* 動畫：右 → 左 */
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="nav">
+    <a href="index.html">首頁</a>
+    <a href="menu.html">菜單</a>
+    <a href="staff.html">店員</a>
+</div>
+
+<div class="hero">
+    <h1>惡魔拉肥咖啡廳(暫)</h1>
+    <p>奧汀穹頂皓天9區25號</p>
+</div>
+
+</body>
+</html>
