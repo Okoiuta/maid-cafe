@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<button class="nav-btn prev">‹</button>
-<button class="nav-btn next">›</button>
 <title>員工介紹</title>
 
 <style>
@@ -32,6 +30,21 @@
     color: black;
     font-weight: bold;
 }
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    font-size: 30px;
+    color: white;
+    background: rgba(0,0,0,0.4);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
 body {
     padding-top: 70px;
     margin:0;
@@ -169,8 +182,6 @@ body {
 
 .prev { left:10px; }
 .next { right:10px; }
-.prev { left:10px; }
-.next { right:10px; }
 
 /* 手機版Modal */
 @media (max-width:700px){
@@ -205,8 +216,9 @@ body {
     <div class="modal-box">
         <div class="modal-left">
             <img id="modal-img">
-            <button class="nav prev">‹</button>
-            <button class="nav next">›</button>
+
+            <button class="nav-btn prev">‹</button>
+            <button class="nav-btn next">›</button>
         </div>
 
         <div class="modal-right">
@@ -225,8 +237,8 @@ const staffData = [
         role: "店長",
         desc: "咕嘟的意思是孤獨，社恐人，擅長獨處，其實很想交朋友，可惜語言表達能力非常薄弱。",
         images: [
-            "683531874_18073062908397134_465692989995833762_n.jpg",
-            "ffxiv2.png"
+            "img1.jpg",
+            "img2.png"
         ]
     },
     {
@@ -234,8 +246,8 @@ const staffData = [
         role: "員工",
         desc: "曾經是隻貓，機緣巧合下與惡魔簽訂契約成為拉拉肥，現在喜歡到處玩。",
         images: [
-            "FINAL FANTASY XIV Online Screenshot 2026.04.29 - 21.00.09.25.png",
-            "ffxiv2.png"
+            "img3.png",
+            "img4.png"
         ]
     },
     {
@@ -243,8 +255,26 @@ const staffData = [
         role: "員工",
         desc: "南洋出身森都成長的沙漠薯，常見於草叢。",
         images: [
-            "ffxiv_20260504_153808_465-2.png",
-            "ffxiv4.png"
+            "img5.png",
+            "img6.png"
+        ]
+    },
+    {
+        name: "Amauri",
+        role: "主席",
+        desc: "也可以叫我阿毛，我只是一個普普通通的小小拉肥，不擅長溝通。雖然人多會怕，但我還是會盡量跟大家溝通的。",
+        images: [
+            "img7.png",
+            "img8.png"
+        ]
+    },
+    {
+        name: "巴巴羅薩",
+        role: "員工",
+        desc: "流落在黃金港的流浪惡魔，過著有一餐沒一餐的生活，因緣際會下到了森都加入惡魔幫，變的三餐都要靠人救濟。目前加入店長的咖啡廳靠著吃員工餐維生。",
+        images: [
+            "img9.png",
+            "img10.png"
         ]
     }
 ];
@@ -260,6 +290,7 @@ staffData.forEach(p => {
     card.dataset.role = p.role;
     card.dataset.desc = p.desc;
     card.dataset.images = p.images.join(",");
+
 
     card.innerHTML = `
         <img src="${p.images[0]}">
@@ -289,6 +320,7 @@ document.addEventListener("click", e => {
 
     images = card.dataset.images.split(",");
     current = 0;
+    console.log(images);
 
     img.src = images[current];
     nameBox.innerText = card.dataset.name;
@@ -304,10 +336,15 @@ document.querySelector(".close").onclick = () => {
 };
 
 /* 下一張 */
-document.querySelector(".next").onclick = () => {
+document.querySelector(".next").addEventListener("click", function() {
+    if (images.length <= 1) return;
+
     current = (current + 1) % images.length;
+
+    console.log("切換到:", images[current]); // 👈 看這裡
+
     img.src = images[current];
-};
+});
 
 /* 上一張 */
 document.querySelector(".prev").onclick = () => {
@@ -323,6 +360,68 @@ document.addEventListener("keydown", function(e) {
     if (e.key === "Escape") {
         modal.style.display = "none";
     }
+});
+
+window.addEventListener("DOMContentLoaded", function() {
+
+    const modal = document.getElementById("modal");
+    const img = document.getElementById("modal-img");
+    const nameBox = document.getElementById("modal-name");
+    const roleBox = document.getElementById("modal-role");
+    const descBox = document.getElementById("modal-desc");
+
+    let images = [];
+    let current = 0;
+
+    // 點卡片
+    document.addEventListener("click", function(e) {
+        const card = e.target.closest(".card");
+        if (!card) return;
+
+        if (!card.dataset.images) return;
+
+        images = card.dataset.images.split(",");
+        current = 0;
+
+        img.src = images[current];
+        nameBox.innerText = card.dataset.name;
+        roleBox.innerText = card.dataset.role;
+        descBox.innerText = card.dataset.desc;
+
+        modal.style.display = "block";
+    });
+
+    // 下一張
+    document.querySelector(".next").addEventListener("click", function() {
+        current = (current + 1) % images.length;
+        img.src = images[current];
+    });
+
+    // 上一張
+    document.querySelector(".prev").addEventListener("click", function() {
+        current = (current - 1 + images.length) % images.length;
+        img.src = images[current];
+    });
+
+    // 關閉
+    document.querySelector(".close").onclick = () => {
+        modal.style.display = "none";
+    };
+
+    // 點背景關閉
+    modal.addEventListener("click", function(e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // ESC 關閉
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") {
+            modal.style.display = "none";
+        }
+    });
+
 });
 </script>
 
