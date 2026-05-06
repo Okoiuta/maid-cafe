@@ -157,6 +157,12 @@ body {
     padding:20px;
 }
 
+#modal-desc {
+    white-space: pre-line;
+    line-height: 1.8;
+    font-size: 16px;
+}
+
 /* 關閉 */
 .close {
     position: fixed;  
@@ -195,6 +201,7 @@ body {
         height:50%;
     }
 }
+
 </style>
 </head>
 
@@ -244,7 +251,7 @@ const staffData = [
     },
     {
         name: "白月",
-        role: "員工",
+        role: "店員",
         desc: "曾經是隻貓，機緣巧合下與惡魔簽訂契約成為拉拉肥，現在喜歡到處玩。",
         images: [
             "img2.png",
@@ -253,7 +260,7 @@ const staffData = [
     },
     {
         name: "芳芳明",
-        role: "員工",
+        role: "店員",
         desc: "南洋出身森都成長的沙漠薯，常見於草叢。",
         images: [
             "img3.png",
@@ -263,7 +270,7 @@ const staffData = [
     {
         name: "Amauri",
         role: "主席",
-        desc: "也可以叫我阿毛，我只是一個普普通通的小小拉肥，不擅長溝通。雖然人多會怕，但我還是會盡量跟大家溝通的。",
+        desc: "也可以叫我阿毛，我只是一個普普通通的小小拉肥，不擅長溝通。\n雖然人多會怕，但我還是會盡量跟大家溝通的。",
         images: [
             "img4.png",
             "img41.png"
@@ -271,8 +278,8 @@ const staffData = [
     },
     {
         name: "巴巴羅薩",
-        role: "員工",
-        desc: "流落在黃金港的流浪惡魔，過著有一餐沒一餐的生活，因緣際會下到了森都加入惡魔幫，變的三餐都要靠人救濟。目前加入店長的咖啡廳靠著吃員工餐維生。",
+        role: "店員",
+        desc: "流落在黃金港的流浪惡魔，過著有一餐沒一餐的生活，因緣際會下到了森都加入惡魔幫，變的三餐都要靠人救濟。\n目前加入店長的咖啡廳靠著吃員工餐維生。",
         images: [
             "img5.png",
             "img51.png"
@@ -280,13 +287,30 @@ const staffData = [
     },
     {
         name: "福利熊熊福利",
-        role: "員工",
+        role: "店員",
         desc: "我是新來的麋鹿惡魔(晃動鹿角)。如果客人太多我會當機或躲在角落，請原諒我…歡迎光臨。",
         images: [
             "img6.jpg",
             "img61.jpg"
         ]
+    },
+    {
+        name: "娜娜莫",
+        role: "女王",
+        desc: "人民的智慧、人民的勇氣、人民的笑顏。\n只有人民的生命才是烏爾達哈無與倫比的至寶。",
+        images: [
+            "img7.png"
+        ]
+    },
+    {
+        name: "米米莉",
+        role: "番茄國王",
+        desc: "擁有無上的權力，可以將任何聲稱國王室科蔬菜的人扔出窗外。",
+        images: [
+            "img8.png",
+        ]
     }
+
 ];
 
 /* ===== 2️⃣ 生成卡片 ===== */
@@ -335,7 +359,7 @@ document.addEventListener("click", e => {
     img.src = images[current];
     nameBox.innerText = card.dataset.name;
     roleBox.innerText = card.dataset.role;
-    descBox.innerText = card.dataset.desc;
+    descBox.innerHTML = card.dataset.desc;
 
     modal.style.display = "block";
 });
