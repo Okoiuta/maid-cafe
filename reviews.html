@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>顧客留言</title>
+
+<style>
+/* ===== 背景 ===== */
+body{
+    margin:0;
+    font-family:Arial;
+
+    background:url("bg.png") center center/cover no-repeat fixed;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    z-index:0;
+}
+
+/* ===== 導覽列 ===== */
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:60px;
+    height:60px;
+
+    background:rgba(255,255,255,0.9);
+    backdrop-filter:blur(10px);
+
+    border-bottom:1px solid #ddd;
+
+    z-index:9999;
+}
+
+.nav a{
+    text-decoration:none;
+    color:black;
+    font-weight:bold;
+}
+
+/* ===== 全頁彈幕 ===== */
+.danmaku-layer{
+    position:fixed;
+    inset:0;
+
+    overflow:hidden;
+    pointer-events:none;
+
+    z-index:1;
+}
+
+.danmaku{
+    position:absolute;
+
+    white-space:nowrap;
+
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+
+    text-shadow:
+        2px 2px 6px black;
+
+    opacity:0.3;
+
+    animation:danmakuMove linear infinite;
+}
+
+@keyframes danmakuMove{
+
+    from{
+        transform:translateX(110vw);
+    }
+
+    to{
+        transform:translateX(-150%);
+    }
+
+}
+
+/* ===== 主要內容 ===== */
+.content{
+    position:relative;
+    z-index:10;
+
+    padding-top:90px;
+    padding-bottom:50px;
+}
+
+/* ===== 標題 ===== */
+.title{
+    text-align:center;
+
+    color:white;
+    font-size:42px;
+
+    margin-bottom:30px;
+
+    text-shadow:
+    -2px -2px 0 #000,
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000;
+}
+
+/* ===== 留言板 ===== */
+.review-grid{
+
+    width:90%;
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+    gap:20px;
+}
+
+.review-card{
+
+    background:rgba(255,255,255,0.88);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:15px;
+
+    padding:20px;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.3);
+
+    transition:.3s;
+}
+
+.review-card:hover{
+    transform:translateY(-5px);
+}
+
+.review-name{
+    font-size:18px;
+    font-weight:bold;
+
+    margin-bottom:10px;
+}
+
+.review-text{
+    line-height:1.8;
+}
+
+/* ===== 手機 ===== */
+@media(max-width:700px){
+
+    .nav{
+        gap:20px;
+    }
+
+    .nav a{
+        font-size:14px;
+    }
+
+    .title{
+        font-size:30px;
+    }
+
+    .danmaku{
+        font-size:16px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- 導覽列 -->
+<div class="nav">
+    <a href="index.html">首頁</a>
+    <a href="menu.html">菜單</a>
+    <a href="staff.html">員工介紹</a>
+    <a href="rules.html">入店須知</a>
+    <a href="reviews.html">顧客留言</a>
+</div>
+
+<!-- 全頁彈幕 -->
+<div class="danmaku-layer">
+
+    <div class="danmaku">
+        好可愛的店>////<
+    </div>
+
+    <div class="danmaku">
+        齁薯報到
+    </div>
+
+    <div class="danmaku">
+        600愛心我就收下了
+    </div>
+
+    <div class="danmaku">
+        少一顆愛心 不然就湊滿600了
+    </div>
+
+    <div class="danmaku">
+        咕嘟咕嘟咕嘟咕嘟咕嘟
+    </div>
+
+    <div class="danmaku">
+        大家都很可愛
+    </div>
+
+    <div class="danmaku">
+        肥肥天堂大家超可愛(ˊ,,·ω·,,)♡
+    </div>
+
+    <div class="danmaku">
+        好可愛
+    </div>
+
+    <div class="danmaku">
+        拉肥們的天堂
+    </div>
+
+    <div class="danmaku">
+        ( '∀')ノ♡
+    </div>
+
+    <div class="danmaku">
+        這裡好棒，大家都好可愛><
+    </div>
+
+    <div class="danmaku">
+        店員都好可愛!!
+    </div>
+
+    <div class="danmaku">
+        可愛咕嘟~~~
+    </div>
+
+    <div class="danmaku">
+        55
+    </div>
+
+    <div class="danmaku">
+        好可愛的店...好可愛...(語言能力逐漸喪失)
+    </div>
+
+    <div class="danmaku">
+        可愛爆擊……我會瘋
+    </div>
+
+    <div class="danmaku">
+        (つA⊂)好 .... 好可愛 ... 我要鼠了(倒地升天
+    </div>
+
+    <div class="danmaku">
+        充滿馬鈴薯香味AWA
+    </div>
+
+    <div class="danmaku">
+        很棒的店
+    </div>
+
+    <div class="danmaku">
+        la heeeeeeeeeeeeeee~~~~~~~~~~~~
+    </div>
+
+    <div class="danmaku">
+        大門用時鐘的想法好讚!
+    </div>
+
+    <div class="danmaku">
+        讚讚 還看到一些眼熟的人
+    </div>
+
+    <div class="danmaku">
+        大家都很棒很可愛…
+    </div>
+
+    <div class="danmaku">
+        一來再來~~精神時光屋!!( '∀')ノ♡
+    </div>
+
+    <div class="danmaku">
+        好多拉肥超可愛的
+    </div>
+
+    <div class="danmaku">
+        鄰居來偷看:D！格局分層好友巧思~~
+    </div>
+
+    <div class="danmaku">
+        漂亮喜歡^^
+    </div>
+
+    <div class="danmaku">
+        已介紹，拉肥朋友很喜歡ouob
+    </div>
+
+    <div class="danmaku">
+        餐廳好棒~
+    </div>
+
+    <div class="danmaku">
+        小知識：一天吃一個醫生 比一天吃一個蘋果更能讓醫生遠離你。
+    </div>
+
+    <div class="danmaku">
+        17區6號特別前來說昨天打錯字了，結果看到太多拉拉肥就跑走了:D
+    </div>
+
+    <div class="danmaku">
+        恭喜搬新家~~~恭喜開幕
+    </div>
+
+    <div class="danmaku">
+        遮裡好溫暖♡
+    </div>
+
+    <div class="danmaku">
+        拉拉肥教傳教士來也，這裡是信福寶地；撸撸拉拉肥，幸福每一天εO( > 3 <)o3
+    </div>
+
+    <div class="danmaku">
+        肥肥專門店，結果契約女僕翹班，下次回來查勤!
+    </div>
+
+    <div class="danmaku">
+        好多肥 好可愛~
+    </div>
+
+    <div class="danmaku">
+        來咕嘟的新店玩了~~~好漂亮的地方~
+    </div>
+
+    <div class="danmaku">
+        恭喜新店開幕!
+    </div>
+
+    <div class="danmaku">
+        恭喜換新家!!!!
+    </div>
+
+    <div class="danmaku">
+        簽到
+    </div>
+
+    <div class="danmaku">
+        很多拉肥
+    </div>
+
+    <div class="danmaku">
+        拉肥好多 好療癒 好可愛 !!!!!!!
+    </div>
+
+    <div class="danmaku">
+        我又來也~~到此一遊
+    </div>
+
+    <div class="danmaku">
+        來咕嘟的新店了，恭喜
+    </div>
+
+    <div class="danmaku">
+        恭賀新店開張~~~大家都很可愛
+    </div>
+
+
+
+</div>
+
+<!-- 留言板 -->
+<div class="content">
+
+    <h1 class="title">顧客留言</h1>
+
+    <div class="review-grid">
+
+        <div class="review-card">
+            <div class="review-name">
+                Atingg
+            </div>
+
+            <div class="review-text">
+                我很喜歡這間店，每個小店員都很可愛，愛店長。
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-name">
+                威爾布萊克
+            </div>
+
+            <div class="review-text">
+                讓人可愛到受不了的店，值得一來再來
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-name">
+                Arting
+            </div>
+
+            <div class="review-text">
+                小心風神有一個叫馬鈴薯殺手的人 
+                希望這裡的可愛事物不會被他看到...
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-name">
+                小歡茄
+            </div>
+
+            <div class="review-text">
+                最愛惡魔拉肥咖啡廳♡!!!!幸福的地方
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-name">
+                Fqpig
+            </div>
+
+            <div class="review-text">
+                好多可愛的拉拉肥！！！我要死了.....
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-name">
+                未來
+            </div>
+
+            <div class="review-text">
+                我喜歡這裡 也好喜歡這些可愛的孩子
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const danmakus = document.querySelectorAll(".danmaku");
+
+const rows = 12;
+const rowHeight = window.innerHeight / rows;
+
+danmakus.forEach((item,index)=>{
+
+    const row = index % rows;
+
+    item.style.top =
+        row * rowHeight +
+        Math.random() * 30 +
+        "px";
+
+    item.style.animationDuration =
+        (18 + Math.random() * 12) + "s";
+
+    item.style.animationDelay =
+        (-Math.random() * 30) + "s";
+
+    item.style.opacity =
+        (0.15 + Math.random() * 0.35);
+
+    item.style.fontSize =
+        (16 + Math.random() * 10) + "px";
+
+});
+
+</script>
+</body>
+</html>
