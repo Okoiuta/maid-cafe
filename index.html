@@ -2,29 +2,10 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>惡魔女僕咖啡廳</title>
 <link rel="stylesheet" href="style.css">
-<div class="memory-wall">
-    <div class="memory-track">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.14 - 21.15.34.83.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.06 - 21.44.44.69.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.05 - 00.17.34.22.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.03.23 - 22.44.26.98.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.05.26 - 22.55.07.77.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.21 - 21.17.23.49.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.21 - 20.41.12.41.png">
 
-        <!-- 重複一份（讓動畫無縫） -->
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.14 - 21.15.34.83.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.06 - 21.44.44.69.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.05 - 00.17.34.22.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.03.23 - 22.44.26.98.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.05.26 - 22.55.07.77.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.21 - 21.17.23.49.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.21 - 20.41.12.41.png">
-
-    </div>
-</div>
 
 <style>
 html, body {
@@ -98,9 +79,16 @@ body::before {
     animation: scroll 20s linear infinite;
 }
 
-.memory-track img {
-    height: 100px;
-    border-radius: 10px;
+.memory-track img{
+
+    height:100px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
 }
 .memory-track img:hover {
     transform: scale(1.1);
@@ -125,6 +113,13 @@ body::before {
     right: 0;
     background: linear-gradient(to left, black, transparent);
 }
+
+.memory-wall:hover .memory-track{
+
+    animation-play-state:paused;
+
+}
+
 /* 動畫：右 → 左 */
 @keyframes scroll {
     from {
@@ -133,6 +128,52 @@ body::before {
     to {
         transform: translateX(-50%);
     }
+}
+
+#lightbox{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.9);
+
+    z-index:9999;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+}
+
+#lightbox img{
+
+    max-width:90%;
+
+    max-height:90%;
+
+    border-radius:12px;
+
+    box-shadow:0 0 30px rgba(255,255,255,0.3);
+
+}
+
+.carousel img{
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.carousel img:hover{
+
+    transform:scale(1.03);
+
 }
 
 
@@ -149,10 +190,71 @@ body::before {
     <a href="reviews.html">留言</a>
 </div>
 
+<div class="memory-wall">
+    <div class="memory-track">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.14 - 21.15.34.83.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.06 - 21.44.44.69.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.05 - 00.17.34.22.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.03.23 - 22.44.26.98.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.05.26 - 22.55.07.77.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.21 - 21.17.23.49.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.21 - 20.41.12.41.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.06.13 - 23.21.53.94.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.06.13 - 23.10.32.10.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.06.07 - 22.19.20.14.png">
+
+        <!-- 重複一份（讓動畫無縫） -->
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.14 - 21.15.34.83.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.06 - 21.44.44.69.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.05 - 00.17.34.22.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.03.23 - 22.44.26.98.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.05.26 - 22.55.07.77.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.21 - 21.17.23.49.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.21 - 20.41.12.41.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.06.13 - 23.21.53.94.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.06.13 - 23.10.32.10.png">
+        <img src="FINAL FANTASY XIV Online Screenshot 2026.06.07 - 22.19.20.14.png">
+
+    </div>
+</div>
+
 <div class="hero">
     <h1>惡魔女僕咖啡廳</h1>
     <p>奧汀穹頂皓天9區25號</p>
 </div>
 
+<div id="lightbox">
+
+    <img id="lightbox-img">
+
+</div>
+
 </body>
 </html>
+<script>
+const lightbox =
+    document.getElementById("lightbox");
+
+const lightboxImg =
+    document.getElementById("lightbox-img");
+
+document
+.querySelectorAll(".memory-track img")
+.forEach(img=>{
+
+    img.addEventListener("click",()=>{
+
+        lightbox.style.display = "flex";
+
+        lightboxImg.src = img.src;
+
+    });
+
+});
+
+lightbox.addEventListener("click",()=>{
+
+    lightbox.style.display = "none";
+
+});
+</script>

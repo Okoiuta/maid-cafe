@@ -580,31 +580,64 @@ body::before{
 
 <script>
 
-const danmakus = document.querySelectorAll(".danmaku");
+// 取得所有彈幕
+let danmakus = [...document.querySelectorAll(".danmaku")];
+
+// ===== 隨機打亂順序 =====
+danmakus.sort(() => Math.random() - 0.5);
+
+// ===== 如果留言太多可只顯示部分 =====
+// danmakus.slice(30).forEach(item => item.remove());
+// danmakus = danmakus.slice(0,30);
 
 const rows = 12;
 const rowHeight = window.innerHeight / rows;
 
-danmakus.forEach((item,index)=>{
+// 每條跑道最後一個彈幕的時間
+const laneTimers = Array(rows).fill(0);
 
-    const row = index % rows;
+danmakus.forEach(item => {
+
+    // 找目前最空的跑道
+    const lane =
+        laneTimers.indexOf(
+            Math.min(...laneTimers)
+        );
+
+    const duration =
+        18 + Math.random() * 12;
+
+    const fontSize =
+        16 + Math.random() * 10;
+
+    const opacity =
+        0.15 + Math.random() * 0.35;
 
     item.style.top =
-        row * rowHeight +
-        Math.random() * 30 +
-        "px";
-
-    item.style.animationDuration =
-        (18 + Math.random() * 12) + "s";
-
-    item.style.animationDelay =
-        (-Math.random() * 30) + "s";
-
-    item.style.opacity =
-        (0.15 + Math.random() * 0.35);
+        lane * rowHeight + "px";
 
     item.style.fontSize =
-        (16 + Math.random() * 10) + "px";
+        fontSize + "px";
+
+    item.style.opacity =
+        opacity;
+
+    item.style.animationDuration =
+        duration + "s";
+
+    // 錯開時間
+    item.style.animationDelay =
+        "-" + laneTimers[lane] + "s";
+
+    // 預估下一則進入時間
+    const textLength =
+        item.textContent.length;
+
+    laneTimers[lane] +=
+        Math.max(
+            duration * 0.35,
+            textLength * 0.4
+        );
 
 });
 
