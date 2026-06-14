@@ -70,16 +70,16 @@ body {
 
     .hero{
 
-        height:55vh;
+        height:50vh;
     }
 
     .hero h1{
 
-        font-size:12vw;
+        font-size:9vw;
 
-        line-height:1.2;
+        line-height:1.1;
 
-        letter-spacing:1px;
+        letter-spacing:0;
 
         text-align:center;
 
@@ -89,7 +89,7 @@ body {
 
     .hero p{
 
-        font-size:6vw;
+        font-size:5vw;
 
         margin-top:10px;
 
