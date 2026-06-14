@@ -52,18 +52,29 @@ body {
 /* ===== 手機版 ===== */
 @media (max-width:700px){
 
-    .nav {
-        gap: 20px;
-        height: 55px;
+    .hero{
+
+        height:55vh;
     }
 
-    .nav a {
-        font-size: 14px;
-        letter-spacing: 1px;
+    .hero h1{
+
+        font-size:12vw;
+
+        line-height:1.2;
+
+        letter-spacing:1px;
+
+        text-align:center;
+
     }
 
-    body {
-        padding-top: 65px;
+    .hero p{
+
+        font-size:6vw;
+
+        margin-top:10px;
+
     }
 
 }
