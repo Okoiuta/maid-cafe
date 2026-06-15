@@ -230,19 +230,6 @@ body::before {
         <img src="FINAL FANTASY XIV Online Screenshot 2026.06.13 - 23.21.53.94.png">
         <img src="FINAL FANTASY XIV Online Screenshot 2026.06.13 - 23.10.32.10.png">
         <img src="FINAL FANTASY XIV Online Screenshot 2026.06.07 - 22.19.20.14.png">
-
-        <!-- 重複一份（讓動畫無縫） -->
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.14 - 21.15.34.83.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.06 - 21.44.44.69.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.05 - 00.17.34.22.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.03.23 - 22.44.26.98.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.05.26 - 22.55.07.77.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.21 - 21.17.23.49.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.04.21 - 20.41.12.41.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.06.13 - 23.21.53.94.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.06.13 - 23.10.32.10.png">
-        <img src="FINAL FANTASY XIV Online Screenshot 2026.06.07 - 22.19.20.14.png">
-
     </div>
 </div>
 
@@ -262,15 +249,22 @@ body::before {
 <script>
 
 const backgrounds = [
-    "bg.png",
-    "bg2.png",
-    "bg3.png",
-    "bg4.png",
-    "bg5.png",
-    "bg6.png",
-    "bg7.png",
-    "bg8.png"
+    "bg.webp",
+    "bg2.webp",
+    "bg3.webp",
+    "bg4.webp",
+    "bg5.webp",
+    "bg6.webp",
+    "bg7.webp",
+    "bg8.webp",
 ];
+backgrounds.forEach(src => {
+
+    const img = new Image();
+
+    img.src = src;
+
+});
 
 let currentLayer = 1;
 let currentIndex = 0;
@@ -349,6 +343,10 @@ document
     });
 
 });
+const track =
+    document.querySelector(".memory-track");
+
+track.innerHTML += track.innerHTML;
 
 lightbox.addEventListener("click",()=>{
 
