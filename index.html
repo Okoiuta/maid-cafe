@@ -15,13 +15,10 @@ html, body {
 }
 
 body {
+
     font-family: Arial;
 
-    background: url("bg.png") no-repeat center center;
-    background-size: cover;      /* 🔥 填滿 */
-    background-attachment: fixed;
-
-    min-height: 100vh;           /* 🔥 防止底部留白 */
+    min-height: 100vh;
 }
 body::before {
     content: "";
@@ -31,12 +28,33 @@ body::before {
     z-index: -1;
 }
 
+#bg1,
+#bg2{
+    position:fixed;
+    inset:0;
+
+    background-size:cover;
+    background-position:center center;
+
+    opacity:0;
+
+    transition:opacity 1.2s ease;
+
+    z-index:-2;
+}
+
+#bg1.active,
+#bg2.active{
+    opacity:1;
+}
+
 .hero {
     height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor:pointer;
 }
 
 /* 主標題 */
@@ -120,6 +138,14 @@ body::before {
 
 }
 
+@media (max-width:768px){
+
+    .hero{
+        min-height:60vh;
+    }
+
+}
+
 /* 動畫：右 → 左 */
 @keyframes scroll {
     from {
@@ -189,6 +215,8 @@ body::before {
     <a href="rules.html">入店須知</a>
     <a href="reviews.html">留言</a>
 </div>
+<div id="bg1"></div>
+<div id="bg2"></div>
 
 <div class="memory-wall">
     <div class="memory-track">
@@ -232,6 +260,76 @@ body::before {
 </body>
 </html>
 <script>
+
+const backgrounds = [
+    "bg.png",
+    "bg2.png",
+    "bg3.png",
+    "bg4.png",
+    "bg5.png",
+    "bg6.png",
+    "bg7.png",
+    "bg8.png"
+];
+
+let currentLayer = 1;
+let currentIndex = 0;
+
+const bg1 = document.getElementById("bg1");
+const bg2 = document.getElementById("bg2");
+
+// 初始背景
+bg1.style.backgroundImage =
+    `url("${backgrounds[0]}")`;
+
+bg1.classList.add("active");
+
+function changeBackground(){
+
+    let nextIndex;
+
+    do{
+        nextIndex =
+            Math.floor(
+                Math.random() *
+                backgrounds.length
+            );
+    }
+    while(
+        nextIndex === currentIndex &&
+        backgrounds.length > 1
+    );
+
+    currentIndex = nextIndex;
+
+    const nextLayer =
+        currentLayer === 1
+        ? bg2
+        : bg1;
+
+    const currentBg =
+        currentLayer === 1
+        ? bg1
+        : bg2;
+
+    nextLayer.style.backgroundImage =
+        `url("${backgrounds[nextIndex]}")`;
+
+    nextLayer.classList.add("active");
+    currentBg.classList.remove("active");
+
+    currentLayer =
+        currentLayer === 1 ? 2 : 1;
+
+
+}
+    document
+    .querySelector(".hero")
+    .addEventListener(
+        "click",
+        changeBackground
+    );
+
 const lightbox =
     document.getElementById("lightbox");
 
@@ -257,4 +355,8 @@ lightbox.addEventListener("click",()=>{
     lightbox.style.display = "none";
 
 });
+bg1.style.backgroundImage =
+    `url("${backgrounds[0]}")`;
+
+bg1.classList.add("active");
 </script>
