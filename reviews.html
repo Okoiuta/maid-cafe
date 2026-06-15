@@ -36,19 +36,18 @@ body::before{
 
 .danmaku{
     position:absolute;
-
     white-space:nowrap;
-
     color:white;
     font-size:22px;
     font-weight:bold;
-
     text-shadow:
         2px 2px 6px black;
 
     opacity:0.3;
 
+    transform:translateX(110vw);
     animation:danmakuMove linear infinite;
+    animation-fill-mode:backwards;
 }
 
 @keyframes danmakuMove{
@@ -594,15 +593,13 @@ danmakus.sort(() => Math.random() - 0.5);
 // danmakus.slice(30).forEach(item => item.remove());
 // danmakus = danmakus.slice(0,30);
 
-const rows = 12;
+const rows = 16;
 const rowHeight = window.innerHeight / rows;
 
-// 每條跑道最後一個彈幕的時間
 const laneTimers = Array(rows).fill(0);
 
 danmakus.forEach(item => {
 
-    // 找目前最空的跑道
     const lane =
         laneTimers.indexOf(
             Math.min(...laneTimers)
@@ -611,38 +608,16 @@ danmakus.forEach(item => {
     const duration =
         18 + Math.random() * 12;
 
-    const fontSize =
-        16 + Math.random() * 10;
-
-    const opacity =
-        0.15 + Math.random() * 0.35;
-
     item.style.top =
-        lane * rowHeight + "px";
-
-    item.style.fontSize =
-        fontSize + "px";
-
-    item.style.opacity =
-        opacity;
+        lane * rowHeight + 8 + "px";
 
     item.style.animationDuration =
         duration + "s";
 
-    // 錯開時間
     item.style.animationDelay =
-        "-" + laneTimers[lane] + "s";
+    laneTimers[lane] + "s";
 
-    // 預估下一則進入時間
-    const textLength =
-        item.textContent.length;
-
-    laneTimers[lane] +=
-        Math.max(
-            duration * 0.35,
-            textLength * 0.4
-        );
-
+    laneTimers[lane] += 5;
 });
 
 </script>
