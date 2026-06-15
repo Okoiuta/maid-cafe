@@ -40,6 +40,8 @@ body::before {
 
     transition:opacity 1.2s ease;
 
+    pointer-events:none;
+
     z-index:-2;
 }
 
@@ -248,6 +250,57 @@ body::before {
 </html>
 <script>
 
+const lightbox =
+    document.getElementById("lightbox");
+
+const lightboxImg =
+    document.getElementById("lightbox-img");
+
+document.addEventListener("click",(e)=>{
+
+    const img =
+        e.target.closest(".memory-track img");
+
+    if(!img) return;
+
+    lightbox.style.display = "flex";
+    lightboxImg.src = img.src;
+
+});
+const track =
+    document.querySelector(".memory-track");
+
+track.innerHTML += track.innerHTML;
+
+lightbox.addEventListener("click",()=>{
+
+    lightbox.style.display = "none";
+
+});
+document.body.addEventListener("click",(e)=>{
+
+    if(
+        e.target.closest(".memory-wall")
+    ){
+        return;
+    }
+
+    if(
+        e.target.closest(".nav")
+    ){
+        return;
+    }
+
+    if(
+        e.target.closest("#lightbox")
+    ){
+        return;
+    }
+
+    changeBackground();
+
+});
+
 const backgrounds = [
     "bg.webp",
     "bg2.webp",
@@ -317,44 +370,6 @@ function changeBackground(){
 
 
 }
-    document
-    .querySelector(".hero")
-    .addEventListener(
-        "click",
-        changeBackground
-    );
 
-const lightbox =
-    document.getElementById("lightbox");
 
-const lightboxImg =
-    document.getElementById("lightbox-img");
-
-document
-.querySelectorAll(".memory-track img")
-.forEach(img=>{
-
-    img.addEventListener("click",()=>{
-
-        lightbox.style.display = "flex";
-
-        lightboxImg.src = img.src;
-
-    });
-
-});
-const track =
-    document.querySelector(".memory-track");
-
-track.innerHTML += track.innerHTML;
-
-lightbox.addEventListener("click",()=>{
-
-    lightbox.style.display = "none";
-
-});
-bg1.style.backgroundImage =
-    `url("${backgrounds[0]}")`;
-
-bg1.classList.add("active");
 </script>
