@@ -372,7 +372,7 @@ staffData.forEach(p => {
     grid.appendChild(card);
 });
 
-/* ===== 3️⃣ Modal邏輯 ===== */
+/* ===== Modal ===== */
 const modal = document.getElementById("modal");
 const img = document.getElementById("modal-img");
 const nameBox = document.getElementById("modal-name");
@@ -382,117 +382,56 @@ const descBox = document.getElementById("modal-desc");
 let images = [];
 let current = 0;
 
-/* 點卡片 */
-document.addEventListener("click", e => {
+// 點卡片
+document.addEventListener("click", function (e) {
     const card = e.target.closest(".card");
     if (!card) return;
 
     images = card.dataset.images.split(",");
     current = 0;
-    console.log(images);
 
     img.src = images[current];
-    nameBox.innerText = card.dataset.name;
-    roleBox.innerText = card.dataset.role;
-    descBox.innerHTML = card.dataset.desc;
+    nameBox.textContent = card.dataset.name;
+    roleBox.textContent = card.dataset.role;
+    descBox.textContent = card.dataset.desc;
 
     modal.style.display = "block";
 });
 
-/* 關閉 */
-document.querySelector(".close").onclick = () => {
-    modal.style.display = "none";
-};
-
-/* 下一張 */
-document.querySelector(".next").addEventListener("click", function() {
+// 下一張
+document.querySelector(".next").addEventListener("click", function () {
     if (images.length <= 1) return;
 
     current = (current + 1) % images.length;
-
-    console.log("切換到:", images[current]); // 👈 看這裡
-
     img.src = images[current];
 });
 
-/* 上一張 */
-document.querySelector(".prev").onclick = () => {
+// 上一張
+document.querySelector(".prev").addEventListener("click", function () {
+    if (images.length <= 1) return;
+
     current = (current - 1 + images.length) % images.length;
     img.src = images[current];
-};
-modal.addEventListener("click", function(e) {
+});
+
+// 關閉
+document.querySelector(".close").addEventListener("click", function () {
+    modal.style.display = "none";
+});
+
+// 點背景關閉
+modal.addEventListener("click", function (e) {
     if (e.target === modal) {
         modal.style.display = "none";
     }
 });
-document.addEventListener("keydown", function(e) {
+
+// ESC 關閉
+document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
         modal.style.display = "none";
     }
 });
-
-window.addEventListener("DOMContentLoaded", function() {
-
-    const modal = document.getElementById("modal");
-    const img = document.getElementById("modal-img");
-    const nameBox = document.getElementById("modal-name");
-    const roleBox = document.getElementById("modal-role");
-    const descBox = document.getElementById("modal-desc");
-
-    let images = [];
-    let current = 0;
-
-    // 點卡片
-    document.addEventListener("click", function(e) {
-        const card = e.target.closest(".card");
-        if (!card) return;
-
-        if (!card.dataset.images) return;
-
-        images = card.dataset.images.split(",");
-        current = 0;
-
-        img.src = images[current];
-        nameBox.innerText = card.dataset.name;
-        roleBox.innerText = card.dataset.role;
-        descBox.innerText = card.dataset.desc;
-
-        modal.style.display = "block";
-    });
-
-    // 下一張
-    document.querySelector(".next").addEventListener("click", function() {
-        current = (current + 1) % images.length;
-        img.src = images[current];
-    });
-
-    // 上一張
-    document.querySelector(".prev").addEventListener("click", function() {
-        current = (current - 1 + images.length) % images.length;
-        img.src = images[current];
-    });
-
-    // 關閉
-    document.querySelector(".close").onclick = () => {
-        modal.style.display = "none";
-    };
-
-    // 點背景關閉
-    modal.addEventListener("click", function(e) {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // ESC 關閉
-    document.addEventListener("keydown", function(e) {
-        if (e.key === "Escape") {
-            modal.style.display = "none";
-        }
-    });
-
-});
 </script>
-
 </body>
 </html>
